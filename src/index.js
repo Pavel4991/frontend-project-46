@@ -1,6 +1,7 @@
 const genDiff = (file1, file2) => {
-  const keys = Object.keys({ ...file1, ...file2 }).toSorted()
-  const diff = keys.reduce((acc, key) => {
+  const keys = Object.keys({ ...file1, ...file2 })
+  const diff = keys.toSorted()
+    .reduce((acc, key) => {
       if (Object.hasOwn(file1, key) && !Object.hasOwn(file2, key)) {
         return [...acc, [`  - ${key}: ${file1[key]}`]]
       }
