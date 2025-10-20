@@ -1,6 +1,6 @@
-import { fileURLToPath } from 'url'
-import fs from 'fs'
-import path from 'path'
+import { fileURLToPath } from 'node:url'
+import fs from 'node:fs'
+import path from 'node:path'
 import { genDiff } from '../src/index.js'
 import { parseJson, parseYaml } from '../src/parsers.js'
 

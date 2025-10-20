@@ -3,8 +3,8 @@
 import { Command } from 'commander';
 import { genDiff } from '../src/index.js';
 import { parseJson, parseYaml } from '../src/parsers.js';
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 
 const program = new Command();
 
