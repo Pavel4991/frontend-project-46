@@ -28,7 +28,7 @@ const makePlain = (diff) => {
             acc += `Property '${pathPart}${key}' was updated. From ${checkValue(value[0])} to ${checkValue(value[1])}\n`
             break
           case 'unchanged':
-            acc += `${iter(value, `${pathPart}${key}.`)}`
+            acc += iter(value, `${pathPart}${key}.`)
             break
       }
       
