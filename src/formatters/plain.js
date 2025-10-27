@@ -4,11 +4,11 @@ const makePlain = (diff) => {
     const keys = Object.keys(diff)
 
     const checkValue = (value) => {
-      if (typeof value === 'boolean' || value === null) {
-        return value
-      }
-      if (typeof value !== 'object') {
+      if (typeof value === 'string') {
         return `'${value}'`
+      }
+      if (typeof value !== 'object' || value === null) {
+        return value
       }
       return '[complex value]'
     }
