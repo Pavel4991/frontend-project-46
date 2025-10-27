@@ -28,10 +28,10 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
 
     const diff = keys
       .reduce((acc, key) => {
-        if (Object.hasOwn(file1, key) && !Object.hasOwn(file2, key)) {
+        if (!Object.hasOwn(file2, key)) {
           return { ...acc, [key]: { status: 'removed', value: checkValue(file1[key]) } }
         }
-        if (!Object.hasOwn(file1, key) && Object.hasOwn(file2, key)) {
+        if (!Object.hasOwn(file1, key)) {
           return { ...acc, [key]: { status: 'added', value: checkValue(file2[key]) } }
         }
 
