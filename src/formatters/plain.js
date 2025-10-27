@@ -1,5 +1,4 @@
 const makePlain = (diff) => {
-
   const iter = (diff, pathPart = '') => {
     const keys = Object.keys(diff)
 
