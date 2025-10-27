@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import fs from 'node:fs'
 import path from 'node:path'
-import { parseJson, parseYaml } from '../src/parsers.js'
+import parseByExt from '../src/parsers.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -10,23 +10,23 @@ const getFixturePath = filename => path.join(__dirname, '..', '__fixtures__', fi
 const readFile = filename => fs.readFileSync(getFixturePath(filename), 'utf-8')
 
 /* eslint-disable */
-test('parseJson', () => {
-    const fileJson = readFile('file1.json')
-    expect(parseJson(fileJson)).toEqual({
-        host: "hexlet.io",
-        timeout: 50,
-        proxy: "123.234.53.22",
-        follow: false
-    })
-})
+describe('Parse_file_by_extension', () => {
 
-test('parseYaml', () => {
-    const fileYaml = readFile('file1.yaml')
-    expect(parseYaml(fileYaml)).toEqual({
-        host: "hexlet.io",
-        timeout: 50,
-        proxy: "123.234.53.22",
-        follow: false
+    const expected = JSON.parse(readFile('firstFile.json'))
+
+    test('parseJson', () => {
+        const fileJson = readFile('firstFile.json')
+        expect(parseByExt(fileJson, 'firstFile.json')).toEqual(expected)
+    })
+
+    test('parseYaml', () => {
+        const fileJson = readFile('firstFile.yaml')
+        expect(parseByExt(fileJson, 'firstFile.yaml')).toEqual(expected)
+    })
+
+    test('parseYml', () => {
+        const fileJson = readFile('firstFile.yml')
+        expect(parseByExt(fileJson, 'firstFile.yml')).toEqual(expected)
     })
 })
 /* eslint-enable */
