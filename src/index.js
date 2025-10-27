@@ -1,17 +1,17 @@
 import _ from 'lodash'
 import selectFormatter from './formatters/index.js'
-import parseByExt from './parsers.js';
-import process from 'node:process';
-import path from 'node:path';
-import fs from 'node:fs';
+import parseByExt from './parsers.js'
+import process from 'node:process'
+import path from 'node:path'
+import fs from 'node:fs'
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
-  const file1 = fs.readFileSync(path.resolve(process.cwd() ,filepath1), { encoding: 'utf8', flag: 'r' })
-  const file2 = fs.readFileSync(path.resolve(process.cwd() ,filepath2), { encoding: 'utf8', flag: 'r' })
+  const file1 = fs.readFileSync(path.resolve(process.cwd(), filepath1), { encoding: 'utf8', flag: 'r' })
+  const file2 = fs.readFileSync(path.resolve(process.cwd(), filepath2), { encoding: 'utf8', flag: 'r' })
 
   const parsedFile1 = parseByExt(file1, filepath1)
   const parsedFile2 = parseByExt(file2, filepath2)
-  
+
   const iter = (file1, file2) => {
     const keys = _.union(_.keys(file1), _.keys(file2))
       .sort((a, b) => ('' + a).localeCompare(('' + b), { sensitivity: 'base' }))
@@ -22,7 +22,7 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
       }
       const keys = Object.keys(value)
       return keys.reduce((acc, key) => {
-          return {...acc, [key] : { status: 'nested', value: checkValue(value[key])} }
+        return { ...acc, [key]: { status: 'nested', value: checkValue(value[key]) } }
       }, {})
     }
 
@@ -36,7 +36,7 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
         }
 
         if (typeof file1[key] === 'object' && typeof file2[key] === 'object' && !_.isEqual(file1[key], file2[key])) {
-          return ({ ...acc, [key]: { status: 'unchanged', value: iter(file1[key], file2[key]) } }) 
+          return ({ ...acc, [key]: { status: 'unchanged', value: iter(file1[key], file2[key]) } })
         }
 
         if (file1[key] !== file2[key]) {
@@ -49,7 +49,7 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
 
   const diff = iter(parsedFile1, parsedFile2)
   const formatter = selectFormatter(format)
-  
+
   return formatter(diff)
 }
 

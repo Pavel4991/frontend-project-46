@@ -10,7 +10,7 @@ const parseYaml = (file) => {
 }
 
 const parseByExt = (file, filepath) => {
-  const extension  = path.extname(filepath)
+  const extension = path.extname(filepath)
   switch (extension) {
     case '.json':
       return parseJson(file)
