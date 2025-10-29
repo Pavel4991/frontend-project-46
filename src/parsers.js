@@ -18,6 +18,8 @@ const parseByExt = (file, filepath) => {
       return parseYaml(file)
     case '.yml':
       return parseYaml(file)
+    default:
+      throw new Error(`Unsupported file extension '${extension}'. Please use supported files with extensions ['.json', '.yaml', '.yml'].`)
   }
 }
 

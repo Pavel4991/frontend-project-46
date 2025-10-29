@@ -63,4 +63,28 @@ describe('YML_diff', () => {
         expect(result).toBe(expected)
     })
 })
+
+
+describe('Errors', () => {
+
+    test('Otput_format_error', () => {
+        const filepath1 = getFixturePath('firstFile.yml')
+        const filepath2 = getFixturePath('secondFile.yml')
+        const falseOtputFormat = 'jso'
+
+        expect(() => {genDiff(filepath1, filepath2, falseOtputFormat)})
+        .toThrow(`Unsupported output format '${falseOtputFormat}'. Please use one of the following output formats: [stylish, plain, json]`)
+    })
+    
+    test('File_extention_error', () => {
+        const falseExt = path.extname('expectedPlain.text')
+        const filepath1 = getFixturePath('firstFile.yml')
+        const filepath2 = getFixturePath('expectedPlain.text')
+
+        expect(() => {genDiff(filepath1, filepath2)})
+        .toThrow(`Unsupported file extension '${falseExt}'. Please use supported files with extensions ['.json', '.yaml', '.yml'].`)
+    })
+})
+
+
 /* eslint-enable */

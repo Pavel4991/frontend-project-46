@@ -10,6 +10,8 @@ const selectFormatter = (format) => {
       return makePlain
     case 'json':
       return makeJson
+    default:
+      throw new Error(`Unsupported output format '${format}'. Please use one of the following output formats: [stylish, plain, json]`)
   }
 }
 
